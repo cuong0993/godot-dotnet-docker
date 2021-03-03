@@ -1,0 +1,20 @@
+name: Docker Image CI
+'on':
+  push:
+    tags:
+      - '*'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Get the version
+        run: 'echo "TAG=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV'
+      - name: Build the Docker image
+        env:
+          DOCKER_USER: '${{ secrets.DOCKER_USER }}'
+          DOCKER_PASSWORD: '${{ secrets.DOCKER_PASSWORD }}'
+        run: |
+          docker build . --file Dockerfile --tag $DOCKER_USER/godot-mono:$TAG
+          docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+          docker push $DOCKER_USER/godot-mono:$TAG
