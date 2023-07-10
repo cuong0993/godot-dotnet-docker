@@ -4,7 +4,7 @@ WORKDIR /files
 
 RUN apk add -U unzip
 
-ARG GODOT_VERSION="4.0.3"
+ARG GODOT_VERSION="4.1"
 ARG RELEASE_NAME="stable"
 
 # This is only needed for non-stable builds (alpha, beta, RC)
