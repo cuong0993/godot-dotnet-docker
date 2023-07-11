@@ -4,7 +4,7 @@ WORKDIR /files
 
 RUN apk add -U unzip
 
-ARG GODOT_VERSION="4.1"
+ARG GODOT_VERSION="4.1.1"
 ARG RELEASE_NAME="stable"
 
 # This is only needed for non-stable builds (alpha, beta, RC)
@@ -27,7 +27,7 @@ RUN wget -O /tmp/android_sdk.zip https://dl.google.com/android/repository/comman
 RUN unzip /tmp/android_sdk.zip -d /tmp/android_sdk
 RUN mv /tmp/android_sdk/* /files
 
-FROM mcr.microsoft.com/dotnet/sdk:7.0.305-jammy-amd64
+FROM mcr.microsoft.com/dotnet/sdk:7.0.306-jammy-amd64
 
 USER root
 
