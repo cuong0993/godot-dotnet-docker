@@ -4,7 +4,7 @@ WORKDIR /files
 
 RUN apk add -U unzip
 
-ARG GODOT_VERSION="4.2.2"
+ARG GODOT_VERSION="4.3"
 ARG RELEASE_NAME="stable"
 
 RUN wget -O /tmp/godot.zip https://github.com/godotengine/godot-builds/releases/download/${GODOT_VERSION}-${RELEASE_NAME}/Godot_v${GODOT_VERSION}-${RELEASE_NAME}_mono_linux_x86_64.zip
@@ -22,7 +22,7 @@ RUN wget -O /tmp/android_sdk.zip https://dl.google.com/android/repository/comman
 RUN unzip /tmp/android_sdk.zip -d /tmp/android_sdk
 RUN mv /tmp/android_sdk/* /files
 
-FROM mcr.microsoft.com/dotnet/sdk:8.0.203-jammy-amd64
+FROM mcr.microsoft.com/dotnet/sdk:8.0.403-jammy-amd64
 
 USER root
 
@@ -39,5 +39,5 @@ RUN  yes | /opt/android-sdk/cmdline-tools/latest/bin/sdkmanager --licenses
 RUN  /opt/android-sdk/cmdline-tools/latest/bin/sdkmanager "platform-tools" "platforms;android-$ANDROID_COMPILE_SDK" "build-tools;${ANDROID_BUILD_TOOLS}"
 
 RUN godot -v -e --quit --headless \
-        && echo 'export/android/android_sdk_path = "/opt/android-sdk"' >> ~/.config/godot/editor_settings-4.tres \
-        && echo 'export/android/java_sdk_path = "/usr"' >> ~/.config/godot/editor_settings-4.tres
+        && echo 'export/android/android_sdk_path = "/opt/android-sdk"' >> ~/.config/godot/editor_settings-4.3.tres \
+        && echo 'export/android/java_sdk_path = "/usr"' >> ~/.config/godot/editor_settings-4.3.tres
